@@ -1,0 +1,5 @@
+<%= simple_form_for (@editor), remote: :true do |f| %>
+  Enter Html<%= f.input :data, as: :text, :input_html => { :cols => 40, :rows => 10 } %>
+  Filename<%= f.text_field :filename %><%= f.error(:filename) %>
+  <%= f.button :submit,"save" %>
+<% end %>

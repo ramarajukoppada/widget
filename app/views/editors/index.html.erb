@@ -1,0 +1,85 @@
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.0/jquery.min.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.min.js"></script>
+
+<script type="text/javascript">
+  $("document").ready(function(){
+    $(".draggable").draggable();
+
+    $(".drop").droppable({
+        drop: handleDropEvent,
+        tolerance:"pointer"
+    });
+
+
+    function handleDropEvent(event, ui){
+        var draggableId = $(ui.draggable).attr("id");
+        var droppableId = $(this).attr("id");
+
+        $.ajax({
+          type: 'GET',
+          url: '/widgets/update_widget',
+          format: "js",
+          data: { widget: {div_id: droppableId, file_id: draggableId}} ,
+
+        });
+    }
+
+    $( ".button" ).click(function() {
+      $( "#tog" ).toggle();
+    });
+
+    $(".sub-frame").hover(function(){
+      $(".close").toggle();
+    });
+
+    $(".close").click(function(){
+      var j = $(this.parentElement).attr("id");
+      var k = $(this.parentNode.parentElement).attr("id");
+    
+      $.ajax({
+          type: 'GET',
+          url: '/widgets/delete',
+          format: "js",
+          data:  {div_id: k, file_id: j} ,
+
+      });
+    });
+  });
+  
+</script>
+
+<div id="main" >
+
+  <div id = "tog" style="display: none; background-color: #CCCC9A ; color: black; float">
+  
+    <%@editors.each do |widget|%>
+      <div id="<%= widget.filename%>" class="draggable" ">
+        <%= widget.filename %>
+      </div>
+    <%end%>
+    
+  </div>
+
+  <% if @frames.present? %>
+    <% (1..@frames.no_of_frames).each do |i| %>
+      <div id = "<%= i %>" style=" width: <%= @frames.width%>%;  height: 600px;  border: 1px solid black;float: left"  class="drop" >
+      <% div(i) %>
+
+      <% if @widgets.count == 1 %>
+        <div id="<%= @widgets.first.file_id %>" class = "sub-frame" style="background-color: pink; color: black; width: 100%; border: 2px solid black;  height: 100px;">
+          <span class="close" style="display: none">X</span>
+          <%= render @widgets.first.file_id, remote: true %>
+        </div>
+      <% else %>
+        <% @widgets.each do |j| %>
+          <div id="<%= j.file_id %>" class = "sub-frame" style="background-color: pink; color: black; width: 100%; border: 2px solid black;  height: 100px;">
+              <span class="close" style="display: none">X</span>
+              <%= render j.file_id, remote: true if j.file_id.present?%>
+          </div>
+        <% end %>
+      <% end %>
+      </div>
+    <% end %>
+  <% else %>
+  <%end %>
+</div>

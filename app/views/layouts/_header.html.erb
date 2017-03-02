@@ -1,0 +1,75 @@
+<header class="navbar navbar-fixed-top navbar-inverse">
+  <div class="navbar-inner">
+    <div class="container-fluid">
+
+      <% if is_admin? %>
+        <nav>
+          <%= button_tag "Widget", :type => 'button', :class => "button" %>
+          <ul class="nav pull-right navbar-nav">
+            <li>
+              <%= link_to "Number of Frames" , new_framescount_path, { remote: :true, 'data-toggle' =>  "modal", 'data-target' => '#modal_popup'}%>
+            </li>
+
+            <li>
+              <%= link_to "Add Widget", new_editor_path, {remote: :true, 'data-toggle' =>  "modal", 'data-target' => '#modal_popup1'} %>
+            </li>
+
+            <li>
+              <%= link_to "Logout",  destroy_user_session_path, method: :delete, :class => 'navbar-link'  %>
+            </li>
+          </ul>
+        </nav>
+      <% else %>
+        <nav>
+          <%= button_tag "Widget", :type => 'button', :class => "button" %>
+          <ul class="nav pull-right navbar-nav">
+            <li>
+              <%= link_to "Number of Frames" , new_framescount_path, { remote: :true,'data-toggle' =>  "modal", 'data-target' => '#modal_popup'}%>
+            </li>
+
+            <li>
+              <%= link_to "Logout",  destroy_user_session_path, method: :delete, :class => 'navbar-link'  %>
+            </li>
+          </ul>
+        </nav>
+      <%end%>
+
+    </div>
+  </div>
+</header>
+
+<div id="modal_popup" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Frames</h4>
+      </div>
+      <div class="modal-body">
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="modal_popup1" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h3 class="modal-title">Add Widget</h3>
+      </div>
+      <div class="modal-body">
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+

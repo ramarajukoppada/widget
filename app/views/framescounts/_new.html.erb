@@ -1,0 +1,4 @@
+<%= simple_form_for (@frame), remote: :true do |f| %>
+  <%= f.input :no_of_frames, :collection => ["1","2","3","4"], :prompt => "Select" %>
+  <%= f.button :submit,"save" %>
+<% end %>

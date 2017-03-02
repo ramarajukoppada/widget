@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  div_id: 1
+  file_id: 1
+
+two:
+  div_id: 1
+  file_id: 1
