@@ -6,7 +6,7 @@ class WidgetsController < ApplicationController
 
     def delete
       @widget = Widget.find_by(:div_id =>params[:div_id], :file_id => params[:file_id])
-      @widget.delete
+      @widget.destroy
     end
   
     private
